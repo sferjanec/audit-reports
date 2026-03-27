@@ -1,24 +1,24 @@
 <div class="audit-container">
-  <nav class="breadcrumb">PortKey > Audit Dashboard</nav>
+  <nav class="breadcrumb">PortKey &gt; Audit Dashboard</nav>
   <h1>Audit Dashboard</h1>
 
-  <kendo-tabstrip>
-    <kendo-tabstrip-tab title="Portkey Users" [selected]="true">
-      <ng-template kendoTabContent>
+  <mat-tab-group animationDuration="0ms">
+    <mat-tab label="Portkey Users">
+      <ng-template matTabContent>
         <app-andromeda-users></app-andromeda-users>
       </ng-template>
-    </kendo-tabstrip-tab>
+    </mat-tab>
 
-    <kendo-tabstrip-tab title="Certification">
-      <ng-template kendoTabContent>
+    <mat-tab label="Certification">
+      <ng-template matTabContent>
         <p>Certification Content Placeholder</p>
       </ng-template>
-    </kendo-tabstrip-tab>
+    </mat-tab>
 
-    <kendo-tabstrip-tab title="Admin">
-      <ng-template kendoTabContent>
+    <mat-tab label="Admin">
+      <ng-template matTabContent>
         <p>Admin Content Placeholder</p>
       </ng-template>
-    </kendo-tabstrip-tab>
-  </kendo-tabstrip>
+    </mat-tab>
+  </mat-tab-group>
 </div>

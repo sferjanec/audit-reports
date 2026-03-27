@@ -38,4 +38,41 @@ Fixed multiple build errors (`NG8001`, `NG8002`, `NG8004`) caused by missing dep
   * **The Rationale:** Implemented Angular's built-in `@if (data$ | async; as data)` block handling in the template. The `async` pipe natively subscribes, automatically cleans up memory, and *crucially* queues explicit Angular Change Detection pushes precisely when the HTTP request resolves. This guarantees the Kendo widgets receive up-to-date DOM metrics and draw commands simultaneously.
 * **Strict Type Cleanups:** Removing the optional chaining `?.` operators (`data?.regionalCounts` -> `data.regionalCounts`) globally throughout the template block. Because the view is safely guarded inside the strict `@if (data)` block, Angular template strict-mode properly assesses all children as definitively defined. 
 
+### 5. Added Material Date Picker (UI-Only) for "Data as of"
+Implemented a non-blocking date picker for the dashboard banner that initializes to the current date and does not yet drive filtering logic.
+
+* **Template Update (`andromeda-users.component.html`):**
+  * Replaced placeholder text `Data as of MM/DD/YYYY [current time]` with a Material date picker input.
+  * Added `mat-form-field`, `matInput`, `mat-datepicker-toggle`, and `mat-datepicker` elements.
+  * Bound the picker to a reactive control (`asOfDateControl`) and added an ARIA label for accessibility.
+
+* **Component Update (`andromeda-users.component.ts`):**
+  * Added `asOfDateControl = new FormControl<Date | null>(new Date())` so the picker lands on today's date on init.
+  * Imported required Angular Material modules: `MatDatepickerModule`, `MatFormFieldModule`, `MatInputModule`, `MatNativeDateModule`.
+  * Imported `ReactiveFormsModule` for form control binding.
+  * Added `ChangeDetectionStrategy.OnPush` to align with modern Angular performance best practices.
+
+* **Styling Update (`andromeda-users.component.scss`):**
+  * Updated `.info-banner` to align label + picker horizontally with wrapping support.
+  * Added `.info-label` and `.as-of-date-field` styles for consistent spacing and width.
+
+### 6. Build Failure Resolution: Missing Angular Animations Package
+Resolved build-time module resolution failure for `@angular/animations/browser` caused by use of `provideAnimationsAsync()` in `app.config.ts` without the matching package installed.
+
+* **Dependency Fix:**
+  * Installed `@angular/animations` (version aligned to Angular v21).
+  * Updated `package.json` and `package-lock.json` accordingly.
+
+* **Verification:**
+  * Re-ran `npm run build`.
+  * Build now completes successfully and outputs to `dist/audit-dashboard`.
+  * One non-blocking warning remains for initial bundle size budget exceedance.
+
+### 7. Next Steps
+* Wire selected date from `asOfDateControl` into the data flow (query param, request payload, or client-side filter) once backend/filter requirements are finalized.
+* Add a small label formatter for display consistency (for example, `MM/dd/yyyy`) next to the picker if a read-only summary string is still desired.
+* Add unit tests for date picker initialization (defaults to current date) and interaction (control updates when a new date is selected).
+* Decide whether to keep native `Date` adapter or switch to a custom adapter (for timezone-safe or locale-specific behavior) before implementing date-based filtering.
+* Address Angular build budget warning by either optimizing bundle size (lazy-loading heavy modules, reducing chart payload) or adjusting budget thresholds in Angular configuration.
+
 

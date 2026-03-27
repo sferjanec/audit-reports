@@ -1,1 +1,77 @@
-.highlight-number { font-size: 2rem; font-weight: bold; color: blue; } .big-number { font-size: 3rem; font-weight: bold; color: blue; text-align: center; }
+.Portkey-dashboard {
+  padding: 1rem;
+}
+
+.info-banner {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+  color: #666;
+}
+
+.info-label {
+  font-weight: 600;
+}
+
+.as-of-date-field {
+  width: 220px;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-auto-rows: minmax(160px, auto);
+  gap: 16px;
+}
+
+.metric-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.metric-card mat-card-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}
+
+/* Specific Grid Placements */
+.card-total-users {
+  grid-column: span 3;
+  grid-row: span 2;
+}
+
+.card-donut-chart {
+  grid-column: span 3;
+  grid-row: span 2;
+}
+
+.card-regional {
+  grid-column: span 2;
+  grid-row: span 1;
+}
+
+.card-bar-chart {
+  grid-column: span 12;
+  grid-row: span 3;
+}
+
+/* Original Typography Styles */
+.highlight-number { 
+  font-size: 2rem; 
+  font-weight: bold; 
+  color: blue; 
+}
+
+.big-number { 
+  font-size: 3rem; 
+  font-weight: bold; 
+  color: blue; 
+  text-align: center; 
+}
