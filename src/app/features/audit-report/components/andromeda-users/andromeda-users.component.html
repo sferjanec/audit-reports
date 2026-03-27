@@ -1,0 +1,112 @@
+<div class="Portkey-dashboard">
+  <div class="info-banner">
+    <span class="k-icon k-i-info"></span> Data as of MM/DD/YYYY [current time]
+  </div>
+
+  @if (data$ | async; as data) {
+    <kendo-tilelayout [columns]="12" [rowHeight]="160" [resizable]="true" [reorderable]="true">
+      
+      <!-- Active Total Users (Col 1, Row 1) -->
+      <kendo-tilelayout-item title="Active Total Users" [col]="1" [row]="1" [colSpan]="3" [rowSpan]="2">
+        <kendo-tilelayout-item-body>
+          <div style="display: flex; height: 100%; align-items: center; justify-content: center;">
+            <div class="big-number">{{ data.activeTotalUsers | number }}</div>
+          </div>
+        </kendo-tilelayout-item-body>
+      </kendo-tilelayout-item>
+
+      <!-- Donut Chart (Col 4, Row 1) -->
+      <kendo-tilelayout-item title="Total Status Breakdown" [col]="4" [row]="1" [colSpan]="3" [rowSpan]="2">
+        <kendo-tilelayout-item-body>
+          <kendo-chart [style.height.px]="250">
+            <kendo-chart-series>
+              <kendo-chart-series-item
+                type="donut"
+                [data]="data.statusBreakdown"
+                field="value"
+                categoryField="category"
+                [colorField]="'color'">
+                <kendo-chart-series-item-labels position="outsideEnd" format="{0}%">
+                </kendo-chart-series-item-labels>
+              </kendo-chart-series-item>
+            </kendo-chart-series>
+            <kendo-chart-legend position="bottom"></kendo-chart-legend>
+          </kendo-chart>
+        </kendo-tilelayout-item-body>
+      </kendo-tilelayout-item>
+
+      <!-- Regional Small Tiles: Row 1 (Cols 7, 9, 11) -->
+      <kendo-tilelayout-item title="FIGNEWTON HQ" [col]="7" [row]="1" [colSpan]="2" [rowSpan]="1">
+        <kendo-tilelayout-item-body>
+          <div style="display: flex; height: 100%; align-items: center; justify-content: center;">
+            <div class="highlight-number">{{data.regionalCounts.FIGNEWTONHq}}</div>
+          </div>
+        </kendo-tilelayout-item-body>
+      </kendo-tilelayout-item>
+
+      <kendo-tilelayout-item title="YOYOs" [col]="9" [row]="1" [colSpan]="2" [rowSpan]="1">
+        <kendo-tilelayout-item-body>
+          <div style="display: flex; height: 100%; align-items: center; justify-content: center;">
+            <div class="highlight-number">{{data.regionalCounts.YOYOs}}</div>
+          </div>
+        </kendo-tilelayout-item-body>
+      </kendo-tilelayout-item>
+
+      <kendo-tilelayout-item title="State" [col]="11" [row]="1" [colSpan]="2" [rowSpan]="1">
+        <kendo-tilelayout-item-body>
+          <div style="display: flex; height: 100%; align-items: center; justify-content: center;">
+            <div class="highlight-number">{{data.regionalCounts.stateTerritory}}</div>
+          </div>
+        </kendo-tilelayout-item-body>
+      </kendo-tilelayout-item>
+
+      <!-- Regional Small Tiles: Row 2 (Cols 7, 9, 11) -->
+      <kendo-tilelayout-item title="FIGNEWTON Regional" [col]="7" [row]="2" [colSpan]="2" [rowSpan]="1">
+        <kendo-tilelayout-item-body>
+          <div style="display: flex; height: 100%; align-items: center; justify-content: center;">
+            <div class="highlight-number">{{data.regionalCounts.FIGNEWTONRegional}}</div>
+          </div>
+        </kendo-tilelayout-item-body>
+      </kendo-tilelayout-item>
+
+      <kendo-tilelayout-item title="Vendor" [col]="9" [row]="2" [colSpan]="2" [rowSpan]="1">
+        <kendo-tilelayout-item-body>
+          <div style="display: flex; height: 100%; align-items: center; justify-content: center;">
+            <div class="highlight-number">{{data.regionalCounts.vendor}}</div>
+          </div>
+        </kendo-tilelayout-item-body>
+      </kendo-tilelayout-item>
+
+      <kendo-tilelayout-item title="Festivus" [col]="11" [row]="2" [colSpan]="2" [rowSpan]="1">
+        <kendo-tilelayout-item-body>
+          <div style="display: flex; height: 100%; align-items: center; justify-content: center;">
+            <div class="highlight-number">{{data.regionalCounts.FestivusOutsideFIGNEWTON}}</div>
+          </div>
+        </kendo-tilelayout-item-body>
+      </kendo-tilelayout-item>
+
+      <!-- Bar Chart (Col 1, Row 3 - Below everything else) -->
+      <kendo-tilelayout-item title="Active User Breakdown" [col]="1" [row]="3" [colSpan]="12" [rowSpan]="3">
+        <kendo-tilelayout-item-body>
+          <kendo-chart>
+            <kendo-chart-series>
+              <kendo-chart-series-item 
+                type="bar" 
+                [data]="[298, 172, 6, 45, 45, 45]"
+                color="#d1345b">
+              </kendo-chart-series-item>
+            </kendo-chart-series>
+            <kendo-chart-category-axis>
+              <kendo-chart-category-axis-item 
+                [categories]="['FIGNEWTON HQ', 'FIGNEWTON Regional', 'State', 'Vendors', 'YOYO', 'Festivus']">
+              </kendo-chart-category-axis-item>
+            </kendo-chart-category-axis>
+          </kendo-chart>
+        </kendo-tilelayout-item-body>
+      </kendo-tilelayout-item>
+
+    </kendo-tilelayout>
+  } @else {
+    <div style="padding: 2rem; text-align: center;">Loading dashboard data...</div>
+  }
+</div>

@@ -1,0 +1,14 @@
+/* Import Kendo Bootstrap Theme (This includes Kendo-specific Bootstrap
+
+overrides) */
+@import "@progress/kendo-theme-bootstrap/dist/all.css";
+
+/* Optional: If you need standard Bootstrap utilities not covered by the Kendo theme */
+@import "bootstrap/dist/css/bootstrap-grid.min.css";
+@import "bootstrap/dist/css/bootstrap-utilities.min.css";
+
+body {
+  margin: 0;
+  font-family: var(--kendo-font-family, "Segoe UI", Roboto, Helvetica, Arial, sans-serif);
+  background-color: #f4f6f9;
+} /* You can add global styles to this file, and also import other style files */

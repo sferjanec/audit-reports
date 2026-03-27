@@ -1,0 +1,46 @@
+{
+  "PortkeyUsers": {
+    "activeTotalUsers": 1002,
+    "statusBreakdown": [
+      { "category": "Pending", "value": 35, "count": 123, "color": "#FFC107" },
+      { "category": "Active", "value": 35, "count": 150, "color": "#4CAF50" },
+      { "category": "Inactive", "value": 17, "count": 64, "color": "#9C27B0" },
+      { "category": "Terminated", "value": 13, "count": 78, "color": "#F44336" }
+    ],
+    "regionalCounts": {
+      "FIGNEWTONHq": 298,
+      "FIGNEWTONRegional": 172,
+      "YOYOs": 45,
+      "vendor": 45,
+      "stateTerritory": 6,
+      "FestivusOutsideFIGNEWTON": 45
+    }
+  },
+  "reCertification": {
+    "completionRate": 78,
+    "totalCycles": 12,
+    "status": [
+      { "type": "Completed", "count": 850, "color": "#28a745" },
+      { "type": "In Progress", "count": 120, "color": "#17a2b8" },
+      { "type": "Overdue", "count": 32, "color": "#dc3545" }
+    ],
+    "timeline": [
+      { "month": "Jan", "count": 45 },
+      { "month": "Feb", "count": 52 },
+      { "month": "Mar", "count": 68 }
+    ]
+  },
+  "admin": {
+    "systemStatus": "Healthy",
+    "lastAuditDate": "2026-03-20",
+    "adminRoles": [
+      { "role": "FIGNEWTON Admin", "count": 12 },
+      { "role": "Regional Admin", "count": 45 },
+      { "role": "State Admin", "count": 8 }
+    ],
+    "recentLogs": [
+      { "user": "J. Doe", "action": "User Export", "timestamp": "2026-03-26 14:20" },
+      { "user": "A. Smith", "action": "Role Update", "timestamp": "2026-03-26 11:05" }
+    ]
+  }
+}
