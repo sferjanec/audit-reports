@@ -56,6 +56,13 @@ export interface AdminData {
   recentLogs: AdminLogItem[];
 }
 
+export interface AdminTask {
+  id: number;
+  taskName: string;
+  status: 'Pending' | 'In Progress' | 'Completed';
+  priority: 'Critical' | 'High' | 'Medium' | 'Low';
+}
+
 export interface AuditDashboardResponse {
   PortkeyUsers: PortkeyUsersData;
   reCertification: CertificationData;
