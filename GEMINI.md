@@ -20,3 +20,7 @@
 - **Log Format:** Use a bulleted list under a date heading.
 - **Content:** Include the file changed, the reason for the change (e.g., "Migrated to rxResource"), and the result of the build/test if applicable.
 - **Persistence:** Never overwrite the entire log; always append or prepend the latest entry.
+
+### Architecture
+- Shell Integration: When creating a new feature component (e.g., Admin, User), automatically update the AuditReportComponent (the shell) to include the new component's selector in the appropriate tab or section.
+- Selector Naming: All selectors must follow the app- prefix convention.
