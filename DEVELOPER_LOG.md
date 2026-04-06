@@ -93,3 +93,17 @@ Resolved build-time module resolution failure for `@angular/animations/browser` 
   patterns.
 
 
+
+## Date: April 5, 2026
+
+* **File Changed:** `docs/reports/complexity_audit_log.md`
+* **Reason:** Created complexity audit log detailing `AndromedaUsersComponent` analysis as requested.
+* **Result:** File created successfully with a healthy complexity score of 0.0024 recorded.
+
+* **File Changed:** `docs/reports/complexity_audit_log.md`
+* **Reason:** Updated 'Mathematical Context' section to include explicit LaTeX equations for complexity limits and standard Markdown tables.
+* **Result:** Enhanced mathematical readability and automated documentation parsing.
+
+* **File Changed:** `README.md`
+* **Reason:** Updated markdown formatting to properly include headings (##, ###, ####) and converted the Testing & Building section into a readable markdown table.
+* **Result:** README structure is now correctly formatted and highly readable.
