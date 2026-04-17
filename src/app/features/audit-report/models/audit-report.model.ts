@@ -6,18 +6,25 @@ export interface StatusBreakdownItem {
 }
 
 export interface RegionalCounts {
-  FIGNEWTONHq: number;
-  FIGNEWTONRegional: number;
-  YOYOs: number;
+  femaHq: number;
+  femaRegional: number;
+  wyo: number;
   vendor: number;
   stateTerritory: number;
-  FestivusOutsideFIGNEWTON: number;
+  federalOutsideFema: number;
 }
 
-export interface PortkeyUsersData {
+export interface AuditReportData {
   activeTotalUsers: number;
   statusBreakdown: StatusBreakdownItem[];
   regionalCounts: RegionalCounts;
+  userDetails:  AuditUser[];
+  statusBreakdownsByRegion?: {
+    active: number[];
+    pending: number[];
+    inactive: number[];
+    terminated: number[];
+  };
 }
 
 export interface CertStatusItem {
@@ -56,8 +63,26 @@ export interface AdminData {
   recentLogs: AdminLogItem[];
 }
 
-export interface AuditDashboardResponse {
-  PortkeyUsers: PortkeyUsersData;
-  reCertification: CertificationData;
-  admin: AdminData;
+export interface AuditDashboardResponse extends AuditReportData {
+  reCertification?: CertificationData;
+  admin?: AdminData;
 }
+
+/**
+ * Detailed user record for the 'Detailed User Pull' grid.
+ */
+export interface AuditUser {
+  firstName: string;
+  lastName: string;
+  uniqueId: string;
+  accountStatus: UserAccountStatus;
+  organization: string;
+  orgType: string;
+  role: string;
+  permissions: string[]; // Stored as an array for easier filtering/logic
+  creationDate: Date | string;
+  recertificationDate: Date | string;
+  lastLoginDate: Date | string;
+}
+
+export type UserAccountStatus = 'Active' | 'Pending' | 'Inactive' | 'Terminated';

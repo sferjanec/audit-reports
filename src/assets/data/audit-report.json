@@ -1,46 +1,77 @@
 {
-  "PortkeyUsers": {
-    "activeTotalUsers": 1002,
-    "statusBreakdown": [
-      { "category": "Pending", "value": 35, "count": 123, "color": "#FFC107" },
-      { "category": "Active", "value": 35, "count": 150, "color": "#4CAF50" },
-      { "category": "Inactive", "value": 17, "count": 64, "color": "#9C27B0" },
-      { "category": "Terminated", "value": 13, "count": 78, "color": "#F44336" }
-    ],
-    "regionalCounts": {
-      "FIGNEWTONHq": 298,
-      "FIGNEWTONRegional": 172,
-      "YOYOs": 45,
-      "vendor": 45,
-      "stateTerritory": 6,
-      "FestivusOutsideFIGNEWTON": 45
+  "activeTotalUsers": 1002,
+  "statusBreakdown": [
+    { "category": "Active", "value": 350, "color": "#4B5FFA" },
+    { "category": "Pending", "value": 350, "color": "#FFE162" },
+    { "category": "Inactive", "value": 170, "color": "#AC5BFF" },
+    { "category": "Terminated", "value": 132, "color": "#FF5892" }
+  ],
+  "regionalCounts": {
+    "femaHq": 298,
+    "femaRegional": 172,
+    "wyo": 45,
+    "vendor": 45,
+    "stateTerritory": 6,
+    "federalOutsideFema": 45
+  },
+  "statusBreakdownsByRegion": {
+    "active": [120, 80, 20, 25, 3, 20],
+    "pending": [80, 50, 15, 10, 2, 15],
+    "inactive": [60, 30, 5, 5, 1, 5],
+    "terminated": [38, 12, 5, 5, 0, 5]
+  },
+  "userDetails": [
+    {
+      "firstName": "Julian",
+      "lastName": "Vance",
+      "uniqueId": "JV-99283",
+      "accountStatus": "Active",
+      "organization": "FEMA HQ",
+      "orgType": "Federal",
+      "role": "Super Admin",
+      "permissions": ["Read", "Write", "Delete"],
+      "creationDate": "2025-01-15T08:00:00Z",
+      "recertificationDate": "2026-04-10T14:30:00Z",
+      "lastLoginDate": "2026-04-12T09:15:00Z"
+    },
+    {
+      "firstName": "Lena",
+      "lastName": "Kalix",
+      "uniqueId": "LK-11022",
+      "accountStatus": "Pending",
+      "organization": "FEMA Regional",
+      "orgType": "State",
+      "role": "Auditor",
+      "permissions": ["Read"],
+      "creationDate": "2025-11-20T10:00:00Z",
+      "recertificationDate": "2026-03-22T11:00:00Z",
+      "lastLoginDate": "2026-04-11T16:45:00Z"
+    },
+    {
+      "firstName": "Stephen",
+      "lastName": "Ferjanec",
+      "uniqueId": "SF-30040",
+      "accountStatus": "Active",
+      "organization": "WYO",
+      "orgType": "Vendor",
+      "role": "Developer",
+      "permissions": ["Read", "Write"],
+      "creationDate": "2024-05-10T09:00:00Z",
+      "recertificationDate": "2026-04-01T10:00:00Z",
+      "lastLoginDate": "2026-04-12T18:22:00Z"
+    },
+    {
+      "firstName": "Sarah",
+      "lastName": "Connor",
+      "uniqueId": "SC-88271",
+      "accountStatus": "Terminated",
+      "organization": "Federal (Outside FEMA)",
+      "orgType": "Federal",
+      "role": "User",
+      "permissions": [],
+      "creationDate": "2023-08-12T12:00:00Z",
+      "recertificationDate": "2025-12-30T09:00:00Z",
+      "lastLoginDate": "2025-12-28T14:10:00Z"
     }
-  },
-  "reCertification": {
-    "completionRate": 78,
-    "totalCycles": 12,
-    "status": [
-      { "type": "Completed", "count": 850, "color": "#28a745" },
-      { "type": "In Progress", "count": 120, "color": "#17a2b8" },
-      { "type": "Overdue", "count": 32, "color": "#dc3545" }
-    ],
-    "timeline": [
-      { "month": "Jan", "count": 45 },
-      { "month": "Feb", "count": 52 },
-      { "month": "Mar", "count": 68 }
-    ]
-  },
-  "admin": {
-    "systemStatus": "Healthy",
-    "lastAuditDate": "2026-03-20",
-    "adminRoles": [
-      { "role": "FIGNEWTON Admin", "count": 12 },
-      { "role": "Regional Admin", "count": 45 },
-      { "role": "State Admin", "count": 8 }
-    ],
-    "recentLogs": [
-      { "user": "J. Doe", "action": "User Export", "timestamp": "2026-03-26 14:20" },
-      { "user": "A. Smith", "action": "Role Update", "timestamp": "2026-03-26 11:05" }
-    ]
-  }
+  ]
 }

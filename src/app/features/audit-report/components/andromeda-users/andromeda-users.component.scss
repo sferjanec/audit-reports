@@ -1,1 +1,47 @@
-.highlight-number { font-size: 2rem; font-weight: bold; color: blue; } .big-number { font-size: 3rem; font-weight: bold; color: blue; text-align: center; }
+:host {
+  display: block;
+  font-family: 'Segoe UI', Roboto, sans-serif;
+
+  // Modern typography utils (extra subtle detail)
+  .extra-small { font-size: 0.75rem; letter-spacing: 0.05rem; }
+  .tile-title { text-shadow: 0 1px 2px rgba(0,0,0,0.08); }
+  .big-number { font-size: 4rem; color: #0056b3; }
+
+  // Chart height management (since inline height is banned)
+  .chart-container-donut { height: 230px; }
+  .chart-container-bar { height: 200px; }
+
+  ::ng-deep {
+    // Styling the Kendo Tile to look like the Figma Card
+    .k-tilelayout-item {
+      border: none !important;
+      border-radius: 8px !important;
+      background-color: #ffffff;
+      
+      // --- FIGMA SPECIFIC SHADOW ---
+      box-shadow: 0 0 25px 0 rgba(0, 0, 0, 0.15) !important;
+    }
+
+    // Figma header styling
+    .k-tilelayout-item-header {
+      background: transparent !important;
+      border-bottom: 1px solid #f2f2f2 !important;
+      padding: 0.75rem 1rem 0.5rem !important;
+    }
+
+    // FIGMA DETAIL: Padding token inside the card content
+    .k-card-body, .k-tilelayout-item-body {
+      padding: 20px !important; 
+    }
+
+    // Grid formatting to match the density of the photo
+    .k-grid {
+      border: none;
+      font-size: 0.85rem;
+      color: #333;
+      
+      th { font-weight: bold; background-color: #fdfdfd; border-color: #f0f0f0;}
+      td { padding: 8px 12px; }
+    }
+  }
+}

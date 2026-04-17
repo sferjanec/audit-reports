@@ -1,112 +1,145 @@
-<div class="Portkey-dashboard">
-  <div class="info-banner">
-    <span class="k-icon k-i-info"></span> Data as of MM/DD/YYYY [current time]
+<div class="Portkey-dashboard px-4 pb-4 bg-light">
+  <div class="row mb-4 align-items-center bg-white shadow-sm p-3 rounded mx-0">
+    <div class="col-md-6">
+      <h2 class="h4 fw-bold mb-0 text-dark">Audit Reports</h2>
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb mb-0 extra-small">
+          <li class="breadcrumb-item text-muted">Portal</li>
+          <li class="breadcrumb-item text-muted">FEMA User Management</li>
+          <li class="breadcrumb-item active text-dark">Audit Reports</li>
+        </ol>
+      </nav>
+    </div>
+    
+    <div class="col-md-6">
+      <div class="d-flex justify-content-end align-items-center gap-3">
+        <div class="text-muted extra-small">
+          <i class="k-icon k-i-info"></i> Data as of MM/DD/YYYY [current time]
+        </div>
+        
+        <kendo-datepicker [value]="startDate$ | async" title="Start Date"></kendo-datepicker>
+        <kendo-datepicker [value]="endDate$ | async" title="End Date"></kendo-datepicker>
+      </div>
+    </div>
   </div>
 
-  @if (data$ | async; as data) {
-    <kendo-tilelayout [columns]="12" [rowHeight]="160" [resizable]="true" [reorderable]="true">
+  @if (rawData$ | async; as data) {
+    <kendo-tilelayout [columns]="12" [rowHeight]="140" [resizable]="true" [reorderable]="true">
       
-      <!-- Active Total Users (Col 1, Row 1) -->
-      <kendo-tilelayout-item title="Active Total Users" [col]="1" [row]="1" [colSpan]="3" [rowSpan]="2">
-        <kendo-tilelayout-item-body>
-          <div style="display: flex; height: 100%; align-items: center; justify-content: center;">
-            <div class="big-number">{{ data.activeTotalUsers | number }}</div>
+      <kendo-tilelayout-item [col]="1" [row]="1" [colSpan]="3" [rowSpan]="2">
+        <ng-template kendoTileLayoutHeaderTemplate>
+          <div class="tile-title text-uppercase fw-bold text-secondary extra-small">Active Total Users</div>
+        </ng-template>
+        <ng-template kendoTileLayoutBodyTemplate>
+          <div class="d-flex h-100 align-items-center justify-content-center">
+            <div class="big-number fw-bold text-primary">{{ data.activeTotalUsers | number }}</div>
           </div>
-        </kendo-tilelayout-item-body>
+        </ng-template>
       </kendo-tilelayout-item>
 
-      <!-- Donut Chart (Col 4, Row 1) -->
-      <kendo-tilelayout-item title="Total Status Breakdown" [col]="4" [row]="1" [colSpan]="3" [rowSpan]="2">
-        <kendo-tilelayout-item-body>
-          <kendo-chart [style.height.px]="250">
+      <kendo-tilelayout-item [col]="4" [row]="1" [colSpan]="4" [rowSpan]="2">
+        <ng-template kendoTileLayoutHeaderTemplate>
+          <div class="tile-title text-uppercase fw-bold text-secondary extra-small text-center">Total Status Breakdown</div>
+        </ng-template>
+        <ng-template kendoTileLayoutBodyTemplate>
+          <kendo-chart class="chart-container-donut" [seriesColors]="donutColors">
+            <kendo-chart-area [margin]="20" background="transparent"></kendo-chart-area>
             <kendo-chart-series>
-              <kendo-chart-series-item
-                type="donut"
-                [data]="data.statusBreakdown"
-                field="value"
-                categoryField="category"
-                [colorField]="'color'">
-                <kendo-chart-series-item-labels position="outsideEnd" format="{0}%">
-                </kendo-chart-series-item-labels>
+              <kendo-chart-series-item 
+                type="donut" 
+                [data]="data.statusBreakdown" 
+                field="value" 
+                categoryField="category">
+                <kendo-chart-series-item-labels [visible]="true" position="outsideEnd" format="{0}%"></kendo-chart-series-item-labels>
               </kendo-chart-series-item>
             </kendo-chart-series>
             <kendo-chart-legend position="bottom"></kendo-chart-legend>
           </kendo-chart>
-        </kendo-tilelayout-item-body>
+        </ng-template>
       </kendo-tilelayout-item>
 
-      <!-- Regional Small Tiles: Row 1 (Cols 7, 9, 11) -->
-      <kendo-tilelayout-item title="FIGNEWTON HQ" [col]="7" [row]="1" [colSpan]="2" [rowSpan]="1">
-        <kendo-tilelayout-item-body>
-          <div style="display: flex; height: 100%; align-items: center; justify-content: center;">
-            <div class="highlight-number">{{data.regionalCounts.FIGNEWTONHq}}</div>
+      <kendo-tilelayout-item [col]="8" [row]="1" [colSpan]="5" [rowSpan]="2">
+        <ng-template kendoTileLayoutBodyTemplate>
+          <div class="row h-100 g-0 text-center align-items-center">
+            <div class="col-4">
+              <div class="extra-small text-muted text-uppercase">FEMA HQ</div>
+              <div class="h3 fw-bold text-primary">{{ data.regionalCounts.femaHq }}</div>
+            </div>
+            <div class="col-4 border-start">
+              <div class="extra-small text-muted text-uppercase">FEMA Regional</div>
+              <div class="h3 fw-bold text-primary">{{ data.regionalCounts.femaRegional }}</div>
+            </div>
+            <div class="col-4 border-start">
+              <div class="extra-small text-muted text-uppercase">WYOs</div>
+              <div class="h3 fw-bold text-primary">{{ data.regionalCounts.wyo }}</div>
+            </div>
+            <div class="col-4 mt-3">
+              <div class="extra-small text-muted text-uppercase">Vendor</div>
+              <div class="h3 fw-bold text-primary">{{ data.regionalCounts.vendor }}</div>
+            </div>
+            <div class="col-4 mt-3 border-start">
+              <div class="extra-small text-muted text-uppercase">State/Territory</div>
+              <div class="h3 fw-bold text-primary">{{ data.regionalCounts.stateTerritory }}</div>
+            </div>
+            <div class="col-4 mt-3 border-start">
+              <div class="extra-small text-muted text-uppercase">Federal</div>
+              <div class="h3 fw-bold text-primary">{{ data.regionalCounts.federalOutsideFema }}</div>
+            </div>
           </div>
-        </kendo-tilelayout-item-body>
+        </ng-template>
       </kendo-tilelayout-item>
 
-      <kendo-tilelayout-item title="YOYOs" [col]="9" [row]="1" [colSpan]="2" [rowSpan]="1">
-        <kendo-tilelayout-item-body>
-          <div style="display: flex; height: 100%; align-items: center; justify-content: center;">
-            <div class="highlight-number">{{data.regionalCounts.YOYOs}}</div>
+      @for (status of statuses; track status; let i = $index) {
+        <kendo-tilelayout-item [col]="(i * 3) + 1" [row]="3" [colSpan]="3" [rowSpan]="2">
+          <ng-template kendoTileLayoutHeaderTemplate>
+            <div class="tile-title text-uppercase fw-bold text-secondary extra-small">{{ status }} User Breakdown</div>
+          </ng-template>
+          <ng-template kendoTileLayoutBodyTemplate>
+            <kendo-chart class="chart-container-bar">
+              <kendo-chart-series>
+                <kendo-chart-series-item 
+                  type="column" 
+                  [data]="getStatusData(status, data)"
+                  [color]="barColors[i]">
+                  <kendo-chart-series-item-labels [visible]="true" position="outsideEnd">
+                  </kendo-chart-series-item-labels>
+                </kendo-chart-series-item>
+              </kendo-chart-series>
+              <kendo-chart-category-axis>
+                <kendo-chart-category-axis-item 
+                  [categories]="regions" 
+                  [labels]="{ visible: false }">
+                </kendo-chart-category-axis-item>
+              </kendo-chart-category-axis>
+            </kendo-chart>
+          </ng-template>
+        </kendo-tilelayout-item>
+      }
+
+      <kendo-tilelayout-item [col]="1" [row]="5" [colSpan]="12" [rowSpan]="4">
+        <ng-template kendoTileLayoutHeaderTemplate>
+          <div class="d-flex justify-content-between w-100 align-items-center">
+            <span class="text-uppercase fw-bold text-secondary extra-small">Detailed User Pull</span>
+            <button class="btn btn-sm btn-outline-secondary px-3 shadow-sm extra-small">
+              <i class="k-icon k-i-download"></i> Export to Excel
+            </button>
           </div>
-        </kendo-tilelayout-item-body>
-      </kendo-tilelayout-item>
-
-      <kendo-tilelayout-item title="State" [col]="11" [row]="1" [colSpan]="2" [rowSpan]="1">
-        <kendo-tilelayout-item-body>
-          <div style="display: flex; height: 100%; align-items: center; justify-content: center;">
-            <div class="highlight-number">{{data.regionalCounts.stateTerritory}}</div>
-          </div>
-        </kendo-tilelayout-item-body>
-      </kendo-tilelayout-item>
-
-      <!-- Regional Small Tiles: Row 2 (Cols 7, 9, 11) -->
-      <kendo-tilelayout-item title="FIGNEWTON Regional" [col]="7" [row]="2" [colSpan]="2" [rowSpan]="1">
-        <kendo-tilelayout-item-body>
-          <div style="display: flex; height: 100%; align-items: center; justify-content: center;">
-            <div class="highlight-number">{{data.regionalCounts.FIGNEWTONRegional}}</div>
-          </div>
-        </kendo-tilelayout-item-body>
-      </kendo-tilelayout-item>
-
-      <kendo-tilelayout-item title="Vendor" [col]="9" [row]="2" [colSpan]="2" [rowSpan]="1">
-        <kendo-tilelayout-item-body>
-          <div style="display: flex; height: 100%; align-items: center; justify-content: center;">
-            <div class="highlight-number">{{data.regionalCounts.vendor}}</div>
-          </div>
-        </kendo-tilelayout-item-body>
-      </kendo-tilelayout-item>
-
-      <kendo-tilelayout-item title="Festivus" [col]="11" [row]="2" [colSpan]="2" [rowSpan]="1">
-        <kendo-tilelayout-item-body>
-          <div style="display: flex; height: 100%; align-items: center; justify-content: center;">
-            <div class="highlight-number">{{data.regionalCounts.FestivusOutsideFIGNEWTON}}</div>
-          </div>
-        </kendo-tilelayout-item-body>
-      </kendo-tilelayout-item>
-
-      <!-- Bar Chart (Col 1, Row 3 - Below everything else) -->
-      <kendo-tilelayout-item title="Active User Breakdown" [col]="1" [row]="3" [colSpan]="12" [rowSpan]="3">
-        <kendo-tilelayout-item-body>
-          <kendo-chart>
-            <kendo-chart-series>
-              <kendo-chart-series-item 
-                type="bar" 
-                [data]="[298, 172, 6, 45, 45, 45]"
-                color="#d1345b">
-              </kendo-chart-series-item>
-            </kendo-chart-series>
-            <kendo-chart-category-axis>
-              <kendo-chart-category-axis-item 
-                [categories]="['FIGNEWTON HQ', 'FIGNEWTON Regional', 'State', 'Vendors', 'YOYO', 'Festivus']">
-              </kendo-chart-category-axis-item>
-            </kendo-chart-category-axis>
-          </kendo-chart>
-        </kendo-tilelayout-item-body>
+        </ng-template>
+        <ng-template kendoTileLayoutBodyTemplate>
+          <kendo-grid [data]="filteredGridData$ | async" [height]="400" [resizable]="true">
+            <kendo-grid-column field="firstName" title="First Name"></kendo-grid-column>
+            <kendo-grid-column field="lastName" title="Last Name"></kendo-grid-column>
+            <kendo-grid-column field="uniqueId" title="Unique ID"></kendo-grid-column>
+            <kendo-grid-column field="accountStatus" title="Account Status"></kendo-grid-column>
+            <kendo-grid-column field="organization" title="Organization"></kendo-grid-column>
+            <kendo-grid-column field="orgType" title="Org Type"></kendo-grid-column>
+            <kendo-grid-column field="lastLoginDate" title="Last Login Date" format="dd/MM/yyyy"></kendo-grid-column>
+          </kendo-grid>
+        </ng-template>
       </kendo-tilelayout-item>
 
     </kendo-tilelayout>
   } @else {
-    <div style="padding: 2rem; text-align: center;">Loading dashboard data...</div>
+    <div class="text-center p-5 text-muted">Loading your audit dashboard...</div>
   }
 </div>
