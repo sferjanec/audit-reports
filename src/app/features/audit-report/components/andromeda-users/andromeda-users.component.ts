@@ -1,16 +1,28 @@
 import { Component, OnInit } from '@angular/core';
 import { AsyncPipe, DecimalPipe } from '@angular/common';
-import { ChartsModule } from '@progress/kendo-angular-charts';
-import { TileLayoutModule } from '@progress/kendo-angular-layout';
-import { DatePickerModule } from '@progress/kendo-angular-dateinputs'; // Corrected import
-import { GridModule } from '@progress/kendo-angular-grid'; // Add Grid
+import { ChartModule, SparklineModule, StockChartModule } from '@progress/kendo-angular-charts';
+import { LayoutModule, TileLayoutModule } from '@progress/kendo-angular-layout';
+import { DateInputsModule, DatePickerModule } from '@progress/kendo-angular-dateinputs';
+import { GridModule } from '@progress/kendo-angular-grid';
 import { AuditDataService } from '../../services/audit-data';
-import { Observable, BehaviorSubject, combineLatest, map } from 'rxjs';
-import { AuditUser, AuditReportData, AuditDashboardResponse } from '../../models/audit-report.model';
+import { Observable, BehaviorSubject, combineLatest, map, tap } from 'rxjs';
+import { AuditUser, AuditDashboardResponse } from '../../models/audit-report.model';
 
 @Component({
   selector: 'app-andromeda-users',
-  imports: [AsyncPipe, DecimalPipe, ChartsModule, TileLayoutModule, DatePickerModule, GridModule],
+  standalone: true,
+  imports: [
+    AsyncPipe, 
+    DecimalPipe, 
+    ChartModule,
+    SparklineModule,
+    StockChartModule,
+    LayoutModule,
+    TileLayoutModule, 
+    DateInputsModule,
+    DatePickerModule, 
+    GridModule
+  ],
   templateUrl: './andromeda-users.component.html',
   styleUrls: ['./andromeda-users.component.scss']
 })
@@ -31,7 +43,14 @@ export class AndromedaUsersComponent implements OnInit {
 
   constructor(private auditService: AuditDataService) {}
   ngOnInit(): void {
-    this.rawData$ = this.auditService.getAuditData();
+    this.rawData$ = this.auditService.getAuditData().pipe(
+      tap(() => {
+        // Force a window resize after a short delay to ensure Kendo components recalculate their layout
+        setTimeout(() => {
+          window.dispatchEvent(new Event('resize'));
+        }, 500);
+      })
+    );
 
     this.filteredGridData$ = combineLatest([
       this.rawData$,
@@ -39,10 +58,22 @@ export class AndromedaUsersComponent implements OnInit {
       this.endDate$
     ]).pipe(
       map(([data, start, end]) => {
-        // Logic for filtering by modification date (entry_dttl)
+        if (!data || !data.userDetails) return [];
+        
         return data.userDetails.filter((user: AuditUser) => {
+          // Flatten string dates to UTC midnight for consistent comparison
           const userDate = new Date(user.recertificationDate);
-          return (!start || userDate >= start) && (!end || userDate <= end);
+          userDate.setHours(0, 0, 0, 0);
+          
+          const s = start ? new Date(start) : null;
+          if (s) s.setHours(0, 0, 0, 0);
+          
+          const e = end ? new Date(end) : null;
+          if (e) e.setHours(23, 59, 59, 999);
+
+          const isAfterStart = !s || userDate >= s;
+          const isBeforeEnd = !e || userDate <= e;
+          return isAfterStart && isBeforeEnd;
         });
       })
     );

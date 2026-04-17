@@ -1,6 +1,26 @@
 :host {
   display: block;
   font-family: 'Segoe UI', Roboto, sans-serif;
+  min-height: 800px;
+  background: white;
+
+  .Portkey-dashboard {
+    min-height: 800px;
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+
+  kendo-tilelayout {
+    display: block !important;
+    min-height: 600px !important;
+    overflow: visible !important;
+  }
+
+  kendo-tilelayout-item {
+    display: block !important;
+    min-height: 140px !important;
+  }
 
   // Modern typography utils (extra subtle detail)
   .extra-small { font-size: 0.75rem; letter-spacing: 0.05rem; }

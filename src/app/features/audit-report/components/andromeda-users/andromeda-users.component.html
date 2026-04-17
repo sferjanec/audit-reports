@@ -24,24 +24,19 @@
   </div>
 
   @if (rawData$ | async; as data) {
-    <kendo-tilelayout [columns]="12" [rowHeight]="140" [resizable]="true" [reorderable]="true">
-      
-      <kendo-tilelayout-item [col]="1" [row]="1" [colSpan]="3" [rowSpan]="2">
-        <ng-template kendoTileLayoutHeaderTemplate>
-          <div class="tile-title text-uppercase fw-bold text-secondary extra-small">Active Total Users</div>
-        </ng-template>
-        <ng-template kendoTileLayoutBodyTemplate>
+    <div class="row g-4">
+      <div class="col-md-3">
+        <div class="bg-white shadow-sm p-3 rounded" style="height: 280px;">
+          <div class="tile-title text-uppercase fw-bold text-secondary extra-small border-bottom mb-3 pb-2">Active Total Users</div>
           <div class="d-flex h-100 align-items-center justify-content-center">
             <div class="big-number fw-bold text-primary">{{ data.activeTotalUsers | number }}</div>
           </div>
-        </ng-template>
-      </kendo-tilelayout-item>
+        </div>
+      </div>
 
-      <kendo-tilelayout-item [col]="4" [row]="1" [colSpan]="4" [rowSpan]="2">
-        <ng-template kendoTileLayoutHeaderTemplate>
-          <div class="tile-title text-uppercase fw-bold text-secondary extra-small text-center">Total Status Breakdown</div>
-        </ng-template>
-        <ng-template kendoTileLayoutBodyTemplate>
+      <div class="col-md-4">
+        <div class="bg-white shadow-sm p-3 rounded" style="height: 280px;">
+          <div class="tile-title text-uppercase fw-bold text-secondary extra-small text-center border-bottom mb-2 pb-2">Total Status Breakdown</div>
           <kendo-chart class="chart-container-donut" [seriesColors]="donutColors">
             <kendo-chart-area [margin]="20" background="transparent"></kendo-chart-area>
             <kendo-chart-series>
@@ -55,46 +50,56 @@
             </kendo-chart-series>
             <kendo-chart-legend position="bottom"></kendo-chart-legend>
           </kendo-chart>
-        </ng-template>
-      </kendo-tilelayout-item>
+        </div>
+      </div>
 
-      <kendo-tilelayout-item [col]="8" [row]="1" [colSpan]="5" [rowSpan]="2">
-        <ng-template kendoTileLayoutBodyTemplate>
-          <div class="row h-100 g-0 text-center align-items-center">
-            <div class="col-4">
-              <div class="extra-small text-muted text-uppercase">FEMA HQ</div>
-              <div class="h3 fw-bold text-primary">{{ data.regionalCounts.femaHq }}</div>
-            </div>
-            <div class="col-4 border-start">
-              <div class="extra-small text-muted text-uppercase">FEMA Regional</div>
-              <div class="h3 fw-bold text-primary">{{ data.regionalCounts.femaRegional }}</div>
-            </div>
-            <div class="col-4 border-start">
-              <div class="extra-small text-muted text-uppercase">WYOs</div>
-              <div class="h3 fw-bold text-primary">{{ data.regionalCounts.wyo }}</div>
-            </div>
-            <div class="col-4 mt-3">
-              <div class="extra-small text-muted text-uppercase">Vendor</div>
-              <div class="h3 fw-bold text-primary">{{ data.regionalCounts.vendor }}</div>
-            </div>
-            <div class="col-4 mt-3 border-start">
-              <div class="extra-small text-muted text-uppercase">State/Territory</div>
-              <div class="h3 fw-bold text-primary">{{ data.regionalCounts.stateTerritory }}</div>
-            </div>
-            <div class="col-4 mt-3 border-start">
-              <div class="extra-small text-muted text-uppercase">Federal</div>
-              <div class="h3 fw-bold text-primary">{{ data.regionalCounts.federalOutsideFema }}</div>
+      <div class="col-md-5">
+        <div class="row g-3 h-100">
+          <div class="col-4">
+            <div class="bg-white shadow-sm p-3 rounded text-center h-100 d-flex flex-column justify-content-center">
+              <div class="extra-small text-muted text-uppercase fw-bold mb-1">FEMA HQ</div>
+              <div class="h4 fw-bold text-dark mb-0">{{ data.regionalCounts.femaHq }}</div>
             </div>
           </div>
-        </ng-template>
-      </kendo-tilelayout-item>
+          <div class="col-4">
+            <div class="bg-white shadow-sm p-3 rounded text-center h-100 d-flex flex-column justify-content-center">
+              <div class="extra-small text-muted text-uppercase fw-bold mb-1">FEMA Reg</div>
+              <div class="h4 fw-bold text-dark mb-0">{{ data.regionalCounts.femaRegional }}</div>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="bg-white shadow-sm p-3 rounded text-center h-100 d-flex flex-column justify-content-center">
+              <div class="extra-small text-muted text-uppercase fw-bold mb-1">WYOs</div>
+              <div class="h4 fw-bold text-dark mb-0">{{ data.regionalCounts.wyo }}</div>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="bg-white shadow-sm p-3 rounded text-center h-100 d-flex flex-column justify-content-center">
+              <div class="extra-small text-muted text-uppercase fw-bold mb-1">Vendor</div>
+              <div class="h4 fw-bold text-dark mb-0">{{ data.regionalCounts.vendor }}</div>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="bg-white shadow-sm p-3 rounded text-center h-100 d-flex flex-column justify-content-center">
+              <div class="extra-small text-muted text-uppercase fw-bold mb-1">State</div>
+              <div class="h4 fw-bold text-dark mb-0">{{ data.regionalCounts.stateTerritory }}</div>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="bg-white shadow-sm p-3 rounded text-center h-100 d-flex flex-column justify-content-center">
+              <div class="extra-small text-muted text-uppercase fw-bold mb-1">Federal</div>
+              <div class="h4 fw-bold text-dark mb-0">{{ data.regionalCounts.federalOutsideFema }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
+    <div class="row g-4 mt-2">
       @for (status of statuses; track status; let i = $index) {
-        <kendo-tilelayout-item [col]="(i * 3) + 1" [row]="3" [colSpan]="3" [rowSpan]="2">
-          <ng-template kendoTileLayoutHeaderTemplate>
-            <div class="tile-title text-uppercase fw-bold text-secondary extra-small">{{ status }} User Breakdown</div>
-          </ng-template>
-          <ng-template kendoTileLayoutBodyTemplate>
+        <div class="col-md-3">
+          <div class="bg-white shadow-sm p-3 rounded" style="height: 280px;">
+            <div class="tile-title text-uppercase fw-bold text-secondary extra-small border-bottom mb-2 pb-2">{{ status }} User Breakdown</div>
             <kendo-chart class="chart-container-bar">
               <kendo-chart-series>
                 <kendo-chart-series-item 
@@ -112,20 +117,20 @@
                 </kendo-chart-category-axis-item>
               </kendo-chart-category-axis>
             </kendo-chart>
-          </ng-template>
-        </kendo-tilelayout-item>
+          </div>
+        </div>
       }
+    </div>
 
-      <kendo-tilelayout-item [col]="1" [row]="5" [colSpan]="12" [rowSpan]="4">
-        <ng-template kendoTileLayoutHeaderTemplate>
-          <div class="d-flex justify-content-between w-100 align-items-center">
+    <div class="row mt-4">
+      <div class="col-12">
+        <div class="bg-white shadow-sm p-3 rounded">
+          <div class="d-flex justify-content-between w-100 align-items-center mb-3">
             <span class="text-uppercase fw-bold text-secondary extra-small">Detailed User Pull</span>
             <button class="btn btn-sm btn-outline-secondary px-3 shadow-sm extra-small">
               <i class="k-icon k-i-download"></i> Export to Excel
             </button>
           </div>
-        </ng-template>
-        <ng-template kendoTileLayoutBodyTemplate>
           <kendo-grid [data]="filteredGridData$ | async" [height]="400" [resizable]="true">
             <kendo-grid-column field="firstName" title="First Name"></kendo-grid-column>
             <kendo-grid-column field="lastName" title="Last Name"></kendo-grid-column>
@@ -133,12 +138,11 @@
             <kendo-grid-column field="accountStatus" title="Account Status"></kendo-grid-column>
             <kendo-grid-column field="organization" title="Organization"></kendo-grid-column>
             <kendo-grid-column field="orgType" title="Org Type"></kendo-grid-column>
-            <kendo-grid-column field="lastLoginDate" title="Last Login Date" format="dd/MM/yyyy"></kendo-grid-column>
+            <kendo-grid-column field="lastLoginDate" title="Last Login Date" format="MM/dd/yyyy"></kendo-grid-column>
           </kendo-grid>
-        </ng-template>
-      </kendo-tilelayout-item>
-
-    </kendo-tilelayout>
+        </div>
+      </div>
+    </div>
   } @else {
     <div class="text-center p-5 text-muted">Loading your audit dashboard...</div>
   }
