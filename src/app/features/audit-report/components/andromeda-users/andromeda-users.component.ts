@@ -86,5 +86,12 @@ export class AndromedaUsersComponent implements OnInit {
     const key = status.toLowerCase() as keyof any;
     return data.statusBreakdownsByRegion?.[key] || [];
   }
+
+  public labelContent(args: any): string {
+    const count = args.dataItem.value;
+    const total = args.series.data.reduce((acc: number, item: any) => acc + item.value, 0);
+    const percentage = ((count / total) * 100).toFixed(1);
+    return `${count} users\n${percentage}%\n${args.category}`;
+  }
 }
 

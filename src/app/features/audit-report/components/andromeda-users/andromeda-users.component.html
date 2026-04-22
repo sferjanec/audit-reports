@@ -45,10 +45,15 @@
                 [data]="data.statusBreakdown" 
                 field="value" 
                 categoryField="category">
-                <kendo-chart-series-item-labels [visible]="true" position="outsideEnd" format="{0}%"></kendo-chart-series-item-labels>
+                <kendo-chart-series-item-labels 
+                  [visible]="true" 
+                  position="outsideEnd" 
+                  background="transparent"
+                  [content]="labelContent">
+                </kendo-chart-series-item-labels>
               </kendo-chart-series-item>
             </kendo-chart-series>
-            <kendo-chart-legend position="bottom"></kendo-chart-legend>
+            <kendo-chart-legend [visible]="false"></kendo-chart-legend>
           </kendo-chart>
         </div>
       </div>
