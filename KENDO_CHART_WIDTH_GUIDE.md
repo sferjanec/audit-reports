@@ -87,3 +87,30 @@ If the chart still doesn't fill the parent `div.col-md-4`, check these two items
      setTimeout(() => this.chart.resize(), 100);
    }
    ```
+
+## 5. Adding Tooltips
+To display values on hover (for both Bar and Donut charts), add the `kendo-chart-tooltip` component inside the main chart tag.
+
+### Basic Tooltip
+```html
+<kendo-chart-tooltip [visible]="true"></kendo-chart-tooltip>
+```
+
+### Advanced Styling (Compatible with v17)
+If the default tooltips look cramped or lack styling (no padding/shadows), you can use a custom template. This allows you to use standard Bootstrap classes or inline styles to give it a professional look.
+
+```html
+<kendo-chart-tooltip [visible]="true" background="#ffffff" [border]="{ color: '#eee', width: 1 }">
+  <ng-template kendoChartSeriesTooltipTemplate let-value="value" let-category="category">
+    <div class="p-2 shadow-sm rounded border-0 text-center" style="min-width: 80px;">
+      <div class="extra-small text-muted text-uppercase fw-bold mb-1">{{ category }}</div>
+      <div class="h6 fw-bold mb-0">{{ value }}</div>
+    </div>
+  </ng-template>
+</kendo-chart-tooltip>
+```
+
+**Why use a template?**
+*   **Total Control**: You can use `padding`, `border-radius`, and `box-shadow` which the base API doesn't always expose cleanly in older versions.
+*   **Semantic Data**: You can include categories or other context (e.g., "Active: 45 users") rather than just a raw number.
+*   **HTML Support**: You can use complex HTML (images, icons, bold text) inside the tooltip.
