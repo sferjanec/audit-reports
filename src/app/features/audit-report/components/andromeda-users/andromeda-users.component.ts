@@ -79,7 +79,7 @@ export class AndromedaUsersComponent implements OnInit {
     );
   }
 
-  public regions = ['FEMA HQ', 'FEMA Regional', 'WYO', 'Vendor', 'State', 'Federal'];
+  public regions = ['Folgers HQ', 'Folgers Regional', 'WHOs', 'Vendors', 'Store', 'Filberts'];
   public statuses = ['Active', 'Pending', 'Inactive', 'Terminated'];
 
   public getStatusData(status: string, data: any): number[] {

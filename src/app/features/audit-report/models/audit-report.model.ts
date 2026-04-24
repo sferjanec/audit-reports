@@ -6,12 +6,12 @@ export interface StatusBreakdownItem {
 }
 
 export interface RegionalCounts {
-  femaHq: number;
-  femaRegional: number;
-  wyo: number;
-  vendor: number;
-  stateTerritory: number;
-  federalOutsideFema: number;
+  folgersHq: number;
+  folgersRegional: number;
+  whos: number;
+  vendors: number;
+  stores: number;
+  filberts: number;
 }
 
 export interface AuditReportData {
